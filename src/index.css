@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.carousel .thumbs-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.active {
+  color: yellow !important;
+  font-weight: 700;
+}
+.menu-img {
+  border-radius: 0px 200px 200px 200px;
+}
+.parallax {
+  /* The image used */
+  min-height: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: overlay;
+  background-color: rgba(0, 0, 0, 0.493);
+}
+.parallax2 {
+  min-height: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.parallax-inner {
+  background-blend-mode: overlay;
+  background-color: rgba(0, 0, 0, 0.493);
+}
