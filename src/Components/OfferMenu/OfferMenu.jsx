@@ -1,24 +1,26 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import useMenu from "../../hooks/useMenu";
 import SectionTitle from "../SectionTitle/SectionTitle";
-import { useEffect } from "react";
 
-const OfferMenu = ({category}) => {
-  const [menus, setMenu] = useState([]);
-  useEffect(() => {
-    fetch("./menu.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const popular = data
-          .filter((menu) => menu.category === category)
-          .slice(0, 6);
-        setMenu(popular);
-      });
-  }, [category]);
+// eslint-disable-next-line react/prop-types
+const OfferMenu = ({ category, subheading, heading }) => {
+  const [menus, loading] = useMenu();
+  const filterItems = menus
+    .filter((menu) => menu.category === category)
+    .slice(0, 6);
+  if (loading) {
+    return (
+      <div className="text-center my-5">
+        <span className="loading loading-spinner loading-lg text-secondary"></span>
+      </div>
+    );
+  }
+
   return (
     <section className="max-w-5xl mx-auto my-16">
-      <SectionTitle subheading={"Don't miss"} heading={"TODAY'S OFFER"} />
+      {subheading && <SectionTitle subheading={subheading} heading={heading} />}
       <div className="grid grid-cols lg:grid-cols-2 gap-8 mt-16">
-        {menus?.map((menu) => (
+        {filterItems?.map((menu) => (
           <div key={menu._id} className="flex gap-4 ">
             <img
               src={menu.image}
@@ -36,9 +38,12 @@ const OfferMenu = ({category}) => {
         ))}
       </div>
       <div className="text-center my-5">
-        <button className="btn btn-ghost btn-outline border-0 border-b-4">
+        <Link
+          to={`/orderfood/${category}`}
+          className="btn btn-ghost btn-outline border-0 border-b-4"
+        >
           ORDER YOUR FAVOURITE FOOD
-        </button>
+        </Link>
       </div>
     </section>
   );

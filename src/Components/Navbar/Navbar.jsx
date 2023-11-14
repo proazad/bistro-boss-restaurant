@@ -24,8 +24,11 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/shop" className="uppercase text-white font-semibold">
-          Our Shop
+        <NavLink
+          to="/orderfood/salad"
+          className="uppercase text-white font-semibold"
+        >
+          Order Food
         </NavLink>
       </li>
     </>

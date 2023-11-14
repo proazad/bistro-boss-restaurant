@@ -1,6 +1,6 @@
+import { FaQuoteLeft } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SectionTitle from "../SectionTitle/SectionTitle";
-import {FaQuoteLeft} from "react-icons/fa"
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -14,7 +14,7 @@ import { HashNavigation, Navigation, Pagination } from "swiper/modules";
 const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    fetch("./reviews.json")
+    fetch("http://localhost:5000/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import SectionTitle from "../SectionTitle/SectionTitle";
 const Menu = () => {
   const [menus, setMenu] = useState([]);
   useEffect(() => {
-    fetch("./menu.json")
+    fetch("http://localhost:5000/menu")
       .then((res) => res.json())
       .then((data) => {
         const popular = data.filter((menu) => menu.category === "popular");
@@ -33,9 +34,9 @@ const Menu = () => {
         ))}
       </div>
       <div className="text-center my-5">
-        <button className="btn btn-ghost btn-outline border-0 border-b-4">
+        <Link to="/menu" className="btn btn-ghost btn-outline border-0 border-b-4">
           Veiw Full Menu
-        </button>
+        </Link>
       </div>
     </div>
   );
