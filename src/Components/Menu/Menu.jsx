@@ -8,7 +8,6 @@ const Menu = () => {
       .then((res) => res.json())
       .then((data) => {
         const popular = data.filter((menu) => menu.category === "popular");
-        console.log(popular);
         setMenu(popular);
       });
   }, []);
@@ -18,23 +17,26 @@ const Menu = () => {
       <div className="grid grid-cols lg:grid-cols-2 gap-8 mt-16">
         {menus?.map((menu) => (
           <div key={menu._id} className="flex gap-4 ">
-          <img
-            src={menu.image}
-            className="w-20 menu-img select-none"
-            alt=""
-          />
-          <div>
-            <h3 className="text-3xl">{menu.name}</h3>
-            <p className="text-lg">{menu.recipe}</p>
+            <img
+              src={menu.image}
+              className="w-20 menu-img select-none"
+              alt=""
+            />
+            <div>
+              <h3 className="text-3xl">{menu.name}</h3>
+              <p className="text-lg">{menu.recipe}</p>
+            </div>
+            <div>
+              <span className="text-lg text-yellow-700">${menu.price}</span>
+            </div>
           </div>
-          <div>
-            <span className="text-lg text-yellow-700">${menu.price}</span>
-          </div>
-        </div>
         ))}
       </div>
       <div className="text-center my-5">
-        <Link to="/menu" className="btn btn-ghost btn-outline border-0 border-b-4">
+        <Link
+          to="/menu"
+          className="btn btn-ghost btn-outline border-0 border-b-4"
+        >
           Veiw Full Menu
         </Link>
       </div>

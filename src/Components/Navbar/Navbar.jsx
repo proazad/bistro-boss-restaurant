@@ -1,6 +1,19 @@
+import { useContext } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 const Navbar = () => {
+  const { user, userLogOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleUserLogout = () => {
+    userLogOut()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   const Links = (
     <>
       <li>
@@ -30,6 +43,25 @@ const Navbar = () => {
         >
           Order Food
         </NavLink>
+      </li>
+      <li>
+        <NavLink to="/secret" className="uppercase text-white font-semibold">
+          Secret Page
+        </NavLink>
+      </li>
+      <li>
+        {user ? (
+          <button
+            onClick={handleUserLogout}
+            className="uppercase text-white font-semibold"
+          >
+            Sign out
+          </button>
+        ) : (
+          <NavLink to="/signin" className="uppercase text-white font-semibold">
+            Sign in
+          </NavLink>
+        )}
       </li>
     </>
   );
@@ -108,30 +140,36 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="rounded-full">
-                <AiOutlineUser className="text-3xl text-white" />
-              </div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
+          {user?.email && (
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <div className="rounded-full">
+                  {user?.photoURL ? (
+                    <img src={user?.photoURL} alt={user.displayName} className="w-5"/>
+                  ) : (
+                    <AiOutlineUser className="text-3xl text-white" />
+                  )}
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <a className="justify-between">
+                   {user?.displayName}
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <a onClick={handleUserLogout}>Logout</a>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
