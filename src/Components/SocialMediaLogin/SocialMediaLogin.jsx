@@ -1,13 +1,15 @@
-import { FaFacebook,FaGithub,FaInstagram  } from "react-icons/fa";
+import { FaFacebook, FaGithub, FaInstagram } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 const SocialMediaLogin = () => {
   const handleGoogleSignIn = () => {
-    swal("Google Sign in");
+    Swal("Google Sign in");
   };
   const handleFacebookSignIn = () => {
-    swal("Oops!",
-      "This Sign in not available at this time plese try again with Google or Others",{icon:"info"}
+    Swal(
+      "Oops!",
+      "This Sign in not available at this time plese try again with Google or Others",
+      { icon: "info" }
     );
   };
   return (
@@ -24,7 +26,7 @@ const SocialMediaLogin = () => {
         onClick={handleFacebookSignIn}
         className="text-3xl cursor-pointer text-neutral"
       />
-      <FaInstagram 
+      <FaInstagram
         onClick={handleFacebookSignIn}
         className="text-3xl cursor-pointer text-secondary"
       />

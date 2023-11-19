@@ -1,11 +1,11 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import SocialMediaLogin from "../../Components/SocialMediaLogin/SocialMediaLogin";
 import bg from "../../assets/others/authentication.png";
 import bg2 from "../../assets/others/authentication2.png";
-import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import SocialMediaLogin from "../../Components/SocialMediaLogin/SocialMediaLogin";
-import swal from "sweetalert";
 const SignUp = () => {
   const { userProfileUpdate } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -18,12 +18,19 @@ const SignUp = () => {
   const onSubmit = (data) => {
     console.log(data);
     createUser(data.email, data.password)
-      .then((res) => {
+      .then(() => {
         userProfileUpdate(data.name, data.photourl);
 
         userLogOut().then(() => {
-          swal("Wow!", "Successfully User Created", { icon: "success" });
-          navigate("/");
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "User Created Successfully",
+            text: "Please Sign in with your credentials",
+            showConfirmButton: false,
+            timer: 2500,
+          });
+          navigate("/signin");
         });
       })
       .catch((error) => {

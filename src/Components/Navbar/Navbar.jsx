@@ -2,9 +2,12 @@ import { useContext } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import useCart from "../../hooks/useCart";
 const Navbar = () => {
   const { user, userLogOut } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [cart] = useCart();
+  const subtotal = cart.reduce((total, item) => total + item.price, 0);
   const handleUserLogout = () => {
     userLogOut()
       .then(() => {
@@ -121,7 +124,7 @@ const Navbar = () => {
                   />
                 </svg>
                 <span className="badge badge-sm badge-info indicator-item">
-                  8
+                  {cart.length}
                 </span>
               </div>
             </label>
@@ -130,12 +133,14 @@ const Navbar = () => {
               className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
             >
               <div className="card-body">
-                <span className="font-bold text-lg">8 Items</span>
-                <span className="text-info">Subtotal: $999</span>
+                <span className="font-bold text-lg">{cart.length} Items</span>
+                <span className="text-info">Subtotal: ${subtotal.toFixed(2)}</span>
                 <div className="card-actions">
-                  <button className="btn btn-primary btn-block">
-                    View cart
-                  </button>
+                  <Link to="/dashboard/mycart">
+                    <button className="btn btn-primary btn-block">
+                      View cart
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -145,7 +150,11 @@ const Navbar = () => {
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="rounded-full">
                   {user?.photoURL ? (
-                    <img src={user?.photoURL} alt={user.displayName} className="w-5"/>
+                    <img
+                      src={user?.photoURL}
+                      alt={user.displayName}
+                      className="w-5"
+                    />
                   ) : (
                     <AiOutlineUser className="text-3xl text-white" />
                   )}
@@ -157,7 +166,7 @@ const Navbar = () => {
               >
                 <li>
                   <a className="justify-between">
-                   {user?.displayName}
+                    {user?.displayName}
                     <span className="badge">New</span>
                   </a>
                 </li>

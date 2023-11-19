@@ -4,11 +4,12 @@ import bg from "../../assets/others/authentication.png";
 import bg2 from "../../assets/others/authentication2.png";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 const SignIn = () => {
   const { userSignIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const handleSignInWithEmailAndPass = (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
@@ -17,12 +18,24 @@ const SignIn = () => {
     console.log(email, password);
 
     userSignIn(email, password)
-      .then((res) => {
-        swal("Cool!", "Successfully Loged in", { icon: "success" });
-        navigate(location?.state ? location?.state : "/");
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Logged in Successfull",
+          showConfirmButton: false,
+          timer: 2300,
+        });
+        navigate(from);
       })
-      .catch((error) => {
-        swal("Oops!", "Something went wrong, user Credential don't match");
+      .catch(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Something went wrong, user Credential don't match",
+          showConfirmButton: false,
+          timer: 3500,
+        });
       });
   };
   return (

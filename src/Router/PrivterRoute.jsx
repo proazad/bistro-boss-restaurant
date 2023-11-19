@@ -16,7 +16,7 @@ const PrivterRoute = ({ children }) => {
   if (user) {
     return children;
   }
-  return <Navigate to="/signin" state={location.pathname} replace></Navigate>;
+  return <Navigate to="/signin" state={{ from: location }} replace></Navigate>;
 };
 PrivterRoute.propTypes = {
   children: PropTypes.node,
