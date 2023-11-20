@@ -1,12 +1,17 @@
 import {
+  FaBook,
   FaCalendarCheck,
   FaHome,
+  FaList,
   FaShopify,
-  FaShoppingCart
+  FaShoppingCart,
+  FaUsers,
+  FaUtensils
 } from "react-icons/fa";
 import { MdContactPhone, MdMenu, MdOutlinePayments } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 const Dashboard = () => {
+  const isAdmin = true;
   return (
     <div className="drawer lg:drawer-open bg-base-200">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -31,29 +36,64 @@ const Dashboard = () => {
           <h2 className="text-2xl font-semibold text-center">Restaurant</h2>
           <ul className="menu p-4 w-80 ">
             {/* Sidebar content here */}
-            <li>
-              <NavLink to="/dashboard" className="text-xl">
-                <FaHome></FaHome>
-                User Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/reservation" className="text-xl">
-                <FaCalendarCheck />
-                Reservation
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/paymenthistory" className="text-xl">
-                <MdOutlinePayments></MdOutlinePayments>
-                Payment History
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/mycart" className="text-xl">
-                <FaShoppingCart /> My Cart
-              </NavLink>
-            </li>
+            {isAdmin ? (
+              <>
+                <li>
+                  <NavLink to="/dashboard/adminhome" className="text-xl">
+                    <FaHome></FaHome>
+                    Admin Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/additems" className="text-xl">
+                    <FaUtensils />
+                    Add Items
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/manageitems" className="text-xl">
+                    <FaList></FaList>
+                    Manage Items
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/managebooks" className="text-xl">
+                    <FaBook /> Manage Books
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/users" className="text-xl">
+                    <FaUsers /> All Users
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink to="/dashboard/userhome" className="text-xl">
+                    <FaHome></FaHome>
+                    User Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/reservation" className="text-xl">
+                    <FaCalendarCheck />
+                    Reservation
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/paymenthistory" className="text-xl">
+                    <MdOutlinePayments></MdOutlinePayments>
+                    Payment History
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/mycart" className="text-xl">
+                    <FaShoppingCart /> My Cart
+                  </NavLink>
+                </li>
+              </>
+            )}
             <div className="divider"></div>
             <li>
               <NavLink to="/" className="text-xl">

@@ -10,6 +10,7 @@ import Secret from "../Pages/Secret/Secret";
 import PrivterRoute from "./PrivterRoute";
 import Dashboard from "../Layout/Dashboard";
 import Cart from "../Pages/Dashboard/Cart/Cart";
+import AllUser from "../Pages/Dashboard/Admin/AllUser/AllUser";
 
 const Router = createBrowserRouter([
   {
@@ -53,8 +54,13 @@ const Router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard/mycart",
+        path: "mycart",
         element: <Cart />,
+      },
+      // Addmin Router
+      {
+        path: "users",
+        element: <AllUser />,
       },
     ],
   },
