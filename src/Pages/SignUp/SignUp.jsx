@@ -6,8 +6,10 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import SocialMediaLogin from "../../Components/SocialMediaLogin/SocialMediaLogin";
 import bg from "../../assets/others/authentication.png";
 import bg2 from "../../assets/others/authentication2.png";
+import userAxiosPublic from "../../hooks/userAxiosPublic";
 const SignUp = () => {
   const { userProfileUpdate } = useContext(AuthContext);
+  const axiosPublic = userAxiosPublic();
   const navigate = useNavigate();
   const {
     register,
@@ -16,21 +18,29 @@ const SignUp = () => {
   } = useForm();
   const { createUser, userLogOut } = useContext(AuthContext);
   const onSubmit = (data) => {
-    console.log(data);
     createUser(data.email, data.password)
       .then(() => {
-        userProfileUpdate(data.name, data.photourl);
-
-        userLogOut().then(() => {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "User Created Successfully",
-            text: "Please Sign in with your credentials",
-            showConfirmButton: false,
-            timer: 2500,
+        userProfileUpdate(data.name, data.photourl).then(() => {
+          const userinfo = {
+            name: data.name,
+            email: data.email,
+            photo: data.photourl,
+          };
+          axiosPublic.post("/users", userinfo).then((res) => {
+            if (res.data.insertedId) {
+              userLogOut().then(() => {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "User Created Successfully",
+                  text: "Please Sign in with your credentials",
+                  showConfirmButton: false,
+                  timer: 2500,
+                });
+                navigate("/signin");
+              });
+            }
           });
-          navigate("/signin");
         });
       })
       .catch((error) => {

@@ -46,7 +46,11 @@ const Router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivterRoute>
+        <Dashboard />
+      </PrivterRoute>
+    ),
     children: [
       {
         path: "/dashboard/mycart",
