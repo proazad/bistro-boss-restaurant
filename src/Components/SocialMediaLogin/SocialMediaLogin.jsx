@@ -3,11 +3,10 @@ import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import userAxiosPublic from "../../hooks/userAxiosPublic";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 const SocialMediaLogin = () => {
   const { userSignInWithGoogle } = useAuth();
   const axiosPublic = userAxiosPublic();
-  const navigate = useNavigate();
   const handleGoogleSignIn = () => {
     userSignInWithGoogle()
       .then((res) => {
@@ -26,7 +25,7 @@ const SocialMediaLogin = () => {
               showConfirmButton: false,
               timer: 2500,
             });
-            navigate("/");
+            <Navigate to={"/"}></Navigate>
           }
         });
       })

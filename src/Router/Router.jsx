@@ -1,16 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
+import Dashboard from "../Layout/Dashboard";
 import Front from "../Layout/Front";
+import AllUser from "../Pages/Dashboard/Admin/AllUser/AllUser";
+import Cart from "../Pages/Dashboard/Cart/Cart";
 import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
 import OrderFood from "../Pages/OrderFood/OrderFood";
 import OurMenu from "../Pages/OurMenu/OurMenu";
+import Secret from "../Pages/Secret/Secret";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
-import Secret from "../Pages/Secret/Secret";
+import AdminRoute from "./AdminRoute";
 import PrivterRoute from "./PrivterRoute";
-import Dashboard from "../Layout/Dashboard";
-import Cart from "../Pages/Dashboard/Cart/Cart";
-import AllUser from "../Pages/Dashboard/Admin/AllUser/AllUser";
+import AddItems from "../Pages/Dashboard/Admin/AddItems/AddItems";
 
 const Router = createBrowserRouter([
   {
@@ -57,10 +59,22 @@ const Router = createBrowserRouter([
         path: "mycart",
         element: <Cart />,
       },
-      // Addmin Router
+      // only Addmin Router
       {
         path: "users",
-        element: <AllUser />,
+        element: (
+          <AdminRoute>
+            <AllUser />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "additems",
+        element: (
+          <AdminRoute>
+            <AddItems />
+          </AdminRoute>
+        ),
       },
     ],
   },

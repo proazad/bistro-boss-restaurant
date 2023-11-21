@@ -6,12 +6,13 @@ import {
   FaShopify,
   FaShoppingCart,
   FaUsers,
-  FaUtensils
+  FaUtensils,
 } from "react-icons/fa";
 import { MdContactPhone, MdMenu, MdOutlinePayments } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
   return (
     <div className="drawer lg:drawer-open bg-base-200">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
