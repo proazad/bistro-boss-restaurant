@@ -1,16 +1,16 @@
 import { FaFacebook, FaGithub, FaInstagram } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import userAxiosPublic from "../../hooks/userAxiosPublic";
-import { Navigate, useNavigate } from "react-router-dom";
 const SocialMediaLogin = () => {
   const { userSignInWithGoogle } = useAuth();
   const axiosPublic = userAxiosPublic();
+  const navigate = useNavigate();
   const handleGoogleSignIn = () => {
     userSignInWithGoogle()
       .then((res) => {
-        console.log(res.user);
         const userInfo = {
           name: res?.user?.displayName,
           email: res?.user?.email,
@@ -25,8 +25,9 @@ const SocialMediaLogin = () => {
               showConfirmButton: false,
               timer: 2500,
             });
-            <Navigate to={"/"}></Navigate>
+            navigate("/");
           }
+          navigate("/");
         });
       })
       .catch((error) => console.log("User Already Exist", error.message));

@@ -2,7 +2,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
-import CartPageTitle from "../CartPageTitle/CartPageTitle";
+import PageTitle from "../PageTitle/PageTitle";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
@@ -34,7 +34,7 @@ const Cart = () => {
   };
   return (
     <div className="px-10 w-full">
-      <CartPageTitle subheading={"My Cart"} heading={"Wanna Add More ?"} />
+      <PageTitle subheading={"My Cart"} heading={"Wanna Add More ?"} />
       <div className="overflow-x-auto mt-10 bg-white">
         <div className="flex justify-between p-4">
             <h2 className="text-3xl">Total Orders: {cart.length}</h2>

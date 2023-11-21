@@ -13,6 +13,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import AdminRoute from "./AdminRoute";
 import PrivterRoute from "./PrivterRoute";
 import AddItems from "../Pages/Dashboard/Admin/AddItems/AddItems";
+import ManageItems from "../Pages/Dashboard/Admin/ManageItems/ManageItems";
 
 const Router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const Router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AddItems />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manageitems",
+        element: (
+          <AdminRoute>
+            <ManageItems />
           </AdminRoute>
         ),
       },
