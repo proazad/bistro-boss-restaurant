@@ -1,4 +1,5 @@
 import { MdDeleteOutline } from "react-icons/md";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
@@ -7,7 +8,7 @@ import PageTitle from "../PageTitle/PageTitle";
 const Cart = () => {
   const [cart, refetch] = useCart();
   const axiosSecure = useAxiosSecure();
-  const totalPrice = cart?.reduce((total, item)=>total+item.price,0);
+  const totalPrice = cart?.reduce((total, item) => total + item.price, 0);
   const handleDeleteCartItem = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -37,9 +38,17 @@ const Cart = () => {
       <PageTitle subheading={"My Cart"} heading={"Wanna Add More ?"} />
       <div className="overflow-x-auto mt-10 bg-white">
         <div className="flex justify-between p-4">
-            <h2 className="text-3xl">Total Orders: {cart.length}</h2>
-            <h2 className="text-3xl">Total Price: ${totalPrice.toFixed(2)}</h2>
-            <button className="btn btn-primary">Pay</button>
+          <h2 className="text-3xl">Total Orders: {cart.length}</h2>
+          <h2 className="text-3xl">Total Price: ${totalPrice.toFixed(2)}</h2>
+          {cart.length === 0 ? (
+            <button disabled className="btn btn-primary">
+              Pay
+            </button>
+          ) : (
+            <Link to="/dashboard/payment" className="btn btn-primary">
+              Pay
+            </Link>
+          )}
         </div>
         <table className="table w-full">
           {/* head */}

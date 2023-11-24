@@ -1,5 +1,6 @@
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useMenu from "../../../../hooks/useMenu";
@@ -36,7 +37,6 @@ const ManageItems = () => {
       }
     });
   };
-  const handleUpdateItem = (item) => {};
   return (
     <div className="w-full px-10">
       <PageTitle
@@ -47,7 +47,7 @@ const ManageItems = () => {
         <h2 className="text-3xl">All Menu</h2>
         <h2 className="text-3xl">Total Menu:{menu.length}</h2>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto pb-10">
         <table className="table table-zebra">
           {/* head */}
           <thead>
@@ -80,16 +80,12 @@ const ManageItems = () => {
                 <td>{item.name}</td>
                 <td>{item.price}</td>
                 <td>
-                  {item?.role === "admin" ? (
-                    "Admin"
-                  ) : (
-                    <button
-                      onClick={() => handleUpdateItem(item)}
-                      className="btn btn-md bg-[#D1A054]"
-                    >
-                      <FaEdit className="text-white text-3xl"></FaEdit>
-                    </button>
-                  )}
+                  <Link
+                    to={`/dashboard/updateItem/${item._id} `}
+                    className="btn btn-md bg-[#D1A054]"
+                  >
+                    <FaEdit className="text-white text-3xl"></FaEdit>
+                  </Link>
                 </td>
                 <td>
                   <button
